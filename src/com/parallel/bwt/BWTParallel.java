@@ -4,18 +4,18 @@ import com.parallel.sorting.MergeParallel;
 import com.utils.Timer;
 import com.utils.Utils;
 
-import javax.rmi.CORBA.Util;
+import java.util.concurrent.RecursiveTask;
 
 public class BWTParallel {
 
-    public final int PARTITION_SIZE = 2;
+    public final int PARTITION_SIZE = 100000;
 
     private int origStrCol;
 
     public void process(String input){
         String transform = this.transform(input);
         System.out.println("TRANSFORM: " +transform);
-        System.out.println("INVERSE TRANSFORM: " +this.inverseTransform(transform, origStrCol));
+//        System.out.println("INVERSE TRANSFORM: " +this.inverseTransform(transform, origStrCol));
     }
 
     public String transform(String input) {
@@ -24,9 +24,9 @@ public class BWTParallel {
         Utils.printStrArr(rotations);
         System.out.println("--------------------");
 
-        Timer.start();
+//        Timer.start();
         MergeParallel.sort(rotations);
-        System.out.println("Speed: "+Timer.end());
+//        System.out.println("Speed: "+Timer.end());
         System.out.println("--SORTED ROTATIONS--");
         Utils.printStrArr(rotations);
         System.out.println("--------------------");
@@ -69,29 +69,52 @@ public class BWTParallel {
 //    }
 
 
-    private String getStrFromCol(String[] sortedRotations, int col) {
-        String output = "";
-        for (String string : sortedRotations) {
-            output = output.concat(Character.toString(string.charAt(col)));
-        }
+//    private String getStrFromCol(String[] sortedRotations, int col) {
+//        String output = "";
+//        for (String string : sortedRotations) {
+//            output = output.concat(Character.toString(string.charAt(col)));
+//        }
+//
+//        return output;
+//    }
 
-        return output;
-    }
 
 
-    /*
     private String getStrFromCol(String[] sortedRotations, int col){
-        String output = "";
-
-        return output;
+        return  getStrFromCol_Parallel(sortedRotations,0,sortedRotations.length-1,col);
     }
 
     private String getStrFromCol_Parallel(String[] sortedRotations, int lowBound, int hiBound, int col){
+        String concatedString = "";
         if(hiBound - lowBound > PARTITION_SIZE){
-            getStrFromCol_Parallel(sortedRotations,)
+            RecursiveTask<String> task = new RecursiveTask<String>() {
+                @Override
+                protected String compute() {
+                    int newHiBound;
+                    if(hiBound%2 == 0)
+                        newHiBound = hiBound-(hiBound/2)-1;
+                    else
+                        newHiBound = hiBound-(hiBound/2);
+                    return getStrFromCol_Parallel(sortedRotations,lowBound, newHiBound,col);
+                }
+            };
+            task.fork();
+            int newLoBound;
+            if(hiBound%2 == 0)
+                newLoBound = hiBound-(hiBound/2);
+            else
+                newLoBound = hiBound-(hiBound/2) + 1;
+
+            concatedString = getStrFromCol_Parallel(sortedRotations,newLoBound,hiBound,col) + task.join();
         }
+        else {
+            for(int i = lowBound; i <= hiBound; i++)
+                concatedString.concat(Character.toString(sortedRotations[i].charAt(col)));
+        }
+
+        return concatedString;
     }
-    */
+
 
     public String inverseTransform(String input, int origStrCol) {
         int len = input.length();
