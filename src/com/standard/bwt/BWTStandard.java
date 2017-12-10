@@ -22,6 +22,7 @@ public class BWTStandard {
 
 //		Timer.start();
 		MergeStandard.sort(rotations);
+//		System.out.println("Execution time for parallel algorithm: " + Timer.end());
 //		System.out.println("Speed: "+Timer.end());
 //		System.out.println("--SORTED ROTATIONS--");
 //		Utils.printStrArr(rotations);

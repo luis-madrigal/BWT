@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Utils {
 
@@ -23,6 +26,15 @@ public class Utils {
 			System.out.println(string);
 		}
 	}
+
+	public static List<String[]> partitionString(String[] toPartition, int partitionSize){
+		List<String[]> partitions = new LinkedList<>();
+		for (int i = 0; i < toPartition.length; i += partitionSize) {
+			partitions.add(Arrays.copyOfRange(toPartition,i,
+					Math.min(i + partitionSize, toPartition.length)));
+		}
+		return partitions;
+	}
 	
 	public static int getStringFromArr(String[] arr, String str) {
 		for(int i = 0; i < arr.length; i++) {
@@ -31,4 +43,6 @@ public class Utils {
 		}
 		return -1;
 	}
+
+
 }
