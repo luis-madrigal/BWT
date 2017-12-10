@@ -5,25 +5,28 @@ import com.utils.Utils;
 
 public class BWTStandard {
 	
-	private int outputCol;
+	private int origStrCol;
 	
-	public String process(String input) {
-		outputCol = input.length() - 1;
-		
+	public void process(String input) {
+		String transform = this.transform(input);
+		System.out.println("TRANSFORM: " +transform);
+		System.out.println("INVERSE TRANSFORM: " +this.inverseTransform(transform, origStrCol));
+	}
+	
+	public String transform(String input) {
 		String[] rotations = rotate(input);
 		System.out.println("------ROTATIONS-----");
-		Utils.printRotations(rotations);
+		Utils.printStrArr(rotations);
 		System.out.println("--------------------");
 
 		MergeStandard.sort(rotations);
 		System.out.println("--SORTED ROTATIONS--");
-		Utils.printRotations(rotations);
+		Utils.printStrArr(rotations);
 		System.out.println("--------------------");
-
-		System.out.println("-------OUTPUT-------");
-		System.out.println(this.getOutput(rotations));
-		System.out.println("--------------------");
-		return "asd";
+		
+		origStrCol = Utils.getStringFromArr(rotations, input);
+		
+		return this.getStrFromCol(rotations, input.length()-1);
 	}
 	
 	private String[] rotate(String input) {
@@ -41,12 +44,30 @@ public class BWTStandard {
 		return rotations;
 	}
 	
-	private String getOutput(String[] sortedRotations) {
+	private String getStrFromCol(String[] sortedRotations, int col) {
 		String output = "";
 		for (String string : sortedRotations) {
-			output = output.concat(Character.toString(string.charAt(outputCol)));
+			output = output.concat(Character.toString(string.charAt(col)));
 		}
 		
 		return output;
+	}
+	
+	public String inverseTransform(String input, int origStrCol) {
+		int len = input.length();
+		String[] inverseTransforms = new String[len];
+		
+		for(int i = 0; i < len; i++) {
+			inverseTransforms[i] = "";
+		}
+		
+		for(int i = 0; i < len; i++) {
+			for(int j = 0; j < len; j++) {
+				inverseTransforms[j] = Character.toString(input.charAt(j)) + inverseTransforms[j];
+			}
+			MergeStandard.sort(inverseTransforms);
+		}
+				
+		return inverseTransforms[origStrCol];
 	}
 }
