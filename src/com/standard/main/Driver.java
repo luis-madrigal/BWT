@@ -8,13 +8,13 @@ import com.utils.Timer;
 
 public class Driver {
 
-	public static final String filename = "dna1mil.txt";
+	public static final String filename = "dna100k.txt";
 
 	public static void main(String[] args) {
 		Timer t = new Timer();
 		t.start();
 		try {
-			new BWTStandard().process(FileReader.readFromFile("input.txt"));
+			new BWTStandard().process(FileReader.readFromFile(filename));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
