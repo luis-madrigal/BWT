@@ -1,4 +1,4 @@
-package com.sorting;
+package com.standard.sorting;
 
 public class MergeStandard {
 	private static void merge(String arr[], int l, int m, int r) {

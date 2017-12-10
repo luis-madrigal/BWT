@@ -1,6 +1,6 @@
-package com.main;
+package com.standard.main;
 
-import com.bwt.BWTStandard;
+import com.standard.bwt.BWTStandard;
 
 public class Driver {
 	

@@ -1,6 +1,6 @@
-package com.bwt;
+package com.standard.bwt;
 
-import com.sorting.MergeStandard;
+import com.standard.sorting.MergeStandard;
 import com.utils.Utils;
 
 public class BWTStandard {
