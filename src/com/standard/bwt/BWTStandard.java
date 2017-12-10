@@ -1,6 +1,7 @@
 package com.standard.bwt;
 
 import com.standard.sorting.MergeStandard;
+import com.utils.Timer;
 import com.utils.Utils;
 
 public class BWTStandard {
@@ -19,7 +20,9 @@ public class BWTStandard {
 		Utils.printStrArr(rotations);
 		System.out.println("--------------------");
 
+		Timer.start();
 		MergeStandard.sort(rotations);
+		System.out.println("Speed: "+Timer.end());
 		System.out.println("--SORTED ROTATIONS--");
 		Utils.printStrArr(rotations);
 		System.out.println("--------------------");

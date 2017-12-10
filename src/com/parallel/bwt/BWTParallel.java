@@ -1,29 +1,41 @@
 package com.parallel.bwt;
 
 import com.parallel.sorting.MergeParallel;
+import com.utils.Timer;
 import com.utils.Utils;
 
+import javax.rmi.CORBA.Util;
+
 public class BWTParallel {
-    private int outputCol;
 
-    public String process(String input) {
-        outputCol = input.length() - 1;
+    public final int PARTITION_SIZE = 2;
 
+    private int origStrCol;
+
+    public void process(String input){
+        String transform = this.transform(input);
+        System.out.println("TRANSFORM: " +transform);
+        System.out.println("INVERSE TRANSFORM: " +this.inverseTransform(transform, origStrCol));
+    }
+
+    public String transform(String input) {
         String[] rotations = rotate(input);
         System.out.println("------ROTATIONS-----");
         Utils.printStrArr(rotations);
         System.out.println("--------------------");
 
+        Timer.start();
         MergeParallel.sort(rotations);
+        System.out.println("Speed: "+Timer.end());
         System.out.println("--SORTED ROTATIONS--");
         Utils.printStrArr(rotations);
         System.out.println("--------------------");
 
-        System.out.println("-------OUTPUT-------");
-        System.out.println(this.getOutput(rotations));
-        System.out.println("--------------------");
-        return "asd";
+        origStrCol = Utils.getStringFromArr(rotations, input);
+
+        return this.getStrFromCol(rotations, input.length()-1);
     }
+
 
     private String[] rotate(String input) {
         int len = input.length();
@@ -40,12 +52,62 @@ public class BWTParallel {
         return rotations;
     }
 
-    private String getOutput(String[] sortedRotations) {
+//
+//    private String[] rotate(String input){
+//        int len = input.length();
+//        String[] rotations = new String[len];
+//
+//        return rotations;
+//    }
+//
+//    private void rotateFork(String[] rotations, int lowBound, int highBound){
+//        String rotatedStr = rotations[lowBound-1];
+//        for(int i = lowBound; i < highBound; i++) {
+//            rotatedStr = Utils.shiftRight(rotatedStr);
+//            rotations[i] = rotatedStr;
+//        }
+//    }
+
+
+    private String getStrFromCol(String[] sortedRotations, int col) {
         String output = "";
         for (String string : sortedRotations) {
-            output = output.concat(Character.toString(string.charAt(outputCol)));
+            output = output.concat(Character.toString(string.charAt(col)));
         }
 
         return output;
+    }
+
+
+    /*
+    private String getStrFromCol(String[] sortedRotations, int col){
+        String output = "";
+
+        return output;
+    }
+
+    private String getStrFromCol_Parallel(String[] sortedRotations, int lowBound, int hiBound, int col){
+        if(hiBound - lowBound > PARTITION_SIZE){
+            getStrFromCol_Parallel(sortedRotations,)
+        }
+    }
+    */
+
+    public String inverseTransform(String input, int origStrCol) {
+        int len = input.length();
+        String[] inverseTransforms = new String[len];
+
+        for(int i = 0; i < len; i++) {
+            inverseTransforms[i] = "";
+        }
+
+        for(int i = 0; i < len; i++) {
+            for(int j = 0; j < len; j++) {
+                inverseTransforms[j] = Character.toString(input.charAt(j)) + inverseTransforms[j];
+            }
+            MergeParallel.sort(inverseTransforms);
+        }
+
+        return inverseTransforms[origStrCol];
     }
 }
