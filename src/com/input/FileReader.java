@@ -19,6 +19,7 @@ public class FileReader {
             sb.append(line);
             line = buf.readLine();
         }
+        buf.close();
         System.out.println("done");
         
         return sb.toString();
