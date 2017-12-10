@@ -1,6 +1,7 @@
 package com.standard.bwt;
 
 import com.standard.sorting.MergeStandard;
+import com.utils.Timer;
 import com.utils.Utils;
 
 public class BWTStandard {
@@ -15,14 +16,16 @@ public class BWTStandard {
 	
 	public String transform(String input) {
 		String[] rotations = rotate(input);
-		System.out.println("------ROTATIONS-----");
-		Utils.printStrArr(rotations);
-		System.out.println("--------------------");
+//		System.out.println("------ROTATIONS-----");
+//		Utils.printStrArr(rotations);
+//		System.out.println("--------------------");
 
+		Timer.start();
 		MergeStandard.sort(rotations);
-		System.out.println("--SORTED ROTATIONS--");
+//		System.out.println("Speed: "+Timer.end());
+//		System.out.println("--SORTED ROTATIONS--");
 		Utils.printStrArr(rotations);
-		System.out.println("--------------------");
+//		System.out.println("--------------------");
 		
 		origStrCol = Utils.getStringFromArr(rotations, input);
 		
