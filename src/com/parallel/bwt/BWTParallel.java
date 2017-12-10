@@ -15,7 +15,7 @@ public class BWTParallel {
     //number of cores the computer has
     public final int N_CORES = 2;
     //change this to adjust partitioning for last column letter retrieval
-    public final int PARTITION_SIZE = 300;
+    public final int PARTITION_SIZE = 1000;
 
     private int origStrCol;
     private Timer t;
@@ -74,7 +74,7 @@ public class BWTParallel {
         return rotations;
     }
 
-//
+    //STANDARD IMPLEMENTATION
 //    private String[] rotate(String input){
 //        int len = input.length();
 //        String[] rotations = new String[len];
@@ -90,6 +90,8 @@ public class BWTParallel {
 //        }
 //    }
 
+
+    //EXECUTOR IMPLEMENTATION
     private String getStrFromCol(String[] sortedRotations, int col){
 
         t.start();
@@ -126,6 +128,7 @@ public class BWTParallel {
         return null;
     }
 
+    //FORK/JOIN IMPLEMENTATION
 //    private String getStrFromCol(String[] sortedRotations, int col){
 //        return  getStrFromCol_Parallel(sortedRotations,0,sortedRotations.length-1,col);
 //    }
