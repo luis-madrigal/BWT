@@ -2,13 +2,14 @@ package com.utils;
 
 public class Timer {
 	
-	private static long startTime;
+	private long startTime;
 	
-	public static void start() {
+	public void start() {
 		startTime = System.currentTimeMillis();
 	}
 
-	public static long end() {
+	public long end() {
 		return System.currentTimeMillis() - startTime;
 	}
+	
 }
