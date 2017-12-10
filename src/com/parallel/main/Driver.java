@@ -11,7 +11,7 @@ public class Driver {
     public static void main(String[] args) {
         Timer.start();
         try {
-            new BWTParallel().process(FileReader.readFromFile("input.txt"));
+            new BWTParallel().process(FileReader.readFromFile("dna100k.txt"));
         } catch (IOException e) {
             e.printStackTrace();
         }

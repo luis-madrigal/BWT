@@ -13,7 +13,7 @@ public class Driver {
 	public static void main(String[] args) {
 		Timer.start();
 		try {
-			new BWTStandard().process(FileReader.readFromFile("input.txt"));
+			new BWTStandard().process(FileReader.readFromFile("dna100k.txt"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
