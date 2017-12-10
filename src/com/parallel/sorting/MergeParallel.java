@@ -52,19 +52,19 @@ public class MergeParallel {
         if (l < r)
         {
             int m = (l+r)/2;
-            //implementation 1
-//           RecursiveAction action = new RecursiveAction(){
-//                @Override
-//                protected void compute() {
-//                    beginSort(arr, l, m);
-//                }
-//            };
+            //fork/join parallel implementation: adapted from Cormen, Leiserson, Rivest, and Stein's introduction to algorithms
+           RecursiveAction action = new RecursiveAction(){
+                @Override
+                protected void compute() {
+                    beginSort(arr, l, m);
+                }
+            };
 
-//           action.fork();
-            beginSort(arr, l, m);
+           action.fork();
+//            beginSort(arr, l, m);   //hide this
            beginSort(arr , m+1, r);
 
-//           action.join();
+           action.join();
 
            merge(arr, l, m, r);
         }
