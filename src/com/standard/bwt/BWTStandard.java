@@ -62,11 +62,13 @@ public class BWTStandard {
 	}
 	
 	private String getStrFromCol(String[] sortedRotations, int col) {
+		t.start();
 		String output = "";
 		for (String string : sortedRotations) {
 			output = output.concat(Character.toString(string.charAt(col)));
 		}
-		
+
+		System.out.println("Last column concatenation: "+t.end());
 		return output;
 	}
 	

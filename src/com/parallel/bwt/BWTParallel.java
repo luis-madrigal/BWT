@@ -92,6 +92,7 @@ public class BWTParallel {
 
     private String getStrFromCol(String[] sortedRotations, int col){
 
+        t.start();
         List<String[]> partitions = Utils.partitionString(sortedRotations,PARTITION_SIZE);
 
         ArrayList<ConcatResult> callables = new ArrayList<>();
@@ -115,6 +116,7 @@ public class BWTParallel {
 //            System.out.println("TF: " + transformed);
             executor.shutdownNow();
 
+            System.out.println("Last column concatenation: "+t.end());
             return transformed;
         }
         catch(Exception e){
