@@ -8,14 +8,15 @@ import java.util.concurrent.RecursiveTask;
 
 public class BWTParallel {
 
-    public final int PARTITION_SIZE = 100000;
+    //change this to adjust partitioning for last column letter retrieval
+    public final int PARTITION_SIZE = 2;
 
     private int origStrCol;
 
     public void process(String input){
         String transform = this.transform(input);
         System.out.println("TRANSFORM: " +transform);
-//        System.out.println("INVERSE TRANSFORM: " +this.inverseTransform(transform, origStrCol));
+        System.out.println("INVERSE TRANSFORM: " +this.inverseTransform(transform, origStrCol));
     }
 
     public String transform(String input) {
@@ -81,6 +82,9 @@ public class BWTParallel {
 
 
     private String getStrFromCol(String[] sortedRotations, int col){
+
+        String transform = getStrFromCol_Parallel(sortedRotations,0,sortedRotations.length-1,col);
+        System.out.println("result: "+transform);
         return  getStrFromCol_Parallel(sortedRotations,0,sortedRotations.length-1,col);
     }
 
@@ -104,12 +108,11 @@ public class BWTParallel {
                 newLoBound = hiBound-(hiBound/2);
             else
                 newLoBound = hiBound-(hiBound/2) + 1;
-
-            concatedString = getStrFromCol_Parallel(sortedRotations,newLoBound,hiBound,col) + task.join();
+            concatedString = task.join() + getStrFromCol_Parallel(sortedRotations,newLoBound,hiBound,col);
         }
         else {
             for(int i = lowBound; i <= hiBound; i++)
-                concatedString.concat(Character.toString(sortedRotations[i].charAt(col)));
+                concatedString = concatedString.concat(Character.toString(sortedRotations[i].charAt(col)));
         }
 
         return concatedString;

@@ -17,18 +17,21 @@ public class BWTStandard {
 	public String transform(String input) {
 		String[] rotations = rotate(input);
 		System.out.println("------ROTATIONS-----");
-//		Utils.printStrArr(rotations);
+		Utils.printStrArr(rotations);
 		System.out.println("--------------------");
 
 //		Timer.start();
 		MergeStandard.sort(rotations);
 //		System.out.println("Speed: "+Timer.end());
 		System.out.println("--SORTED ROTATIONS--");
-//		Utils.printStrArr(rotations);
+		Utils.printStrArr(rotations);
 		System.out.println("--------------------");
 		
 		origStrCol = Utils.getStringFromArr(rotations, input);
-		
+
+		String transform = this.getStrFromCol(rotations, input.length()-1);
+		System.out.println("TRANSFORM: "+transform);
+
 		return this.getStrFromCol(rotations, input.length()-1);
 	}
 	
