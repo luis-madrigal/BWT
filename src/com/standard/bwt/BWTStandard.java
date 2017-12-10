@@ -20,11 +20,11 @@ public class BWTStandard {
 //		Utils.printStrArr(rotations);
 //		System.out.println("--------------------");
 
-		Timer.start();
+//		Timer.start();
 		MergeStandard.sort(rotations);
 //		System.out.println("Speed: "+Timer.end());
 //		System.out.println("--SORTED ROTATIONS--");
-		Utils.printStrArr(rotations);
+//		Utils.printStrArr(rotations);
 //		System.out.println("--------------------");
 		
 		origStrCol = Utils.getStringFromArr(rotations, input);
