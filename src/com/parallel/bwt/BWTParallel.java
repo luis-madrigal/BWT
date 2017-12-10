@@ -9,7 +9,7 @@ import java.util.concurrent.RecursiveTask;
 public class BWTParallel {
 
     //change this to adjust partitioning for last column letter retrieval
-    public final int PARTITION_SIZE = 2;
+    public final int PARTITION_SIZE = 12500;
 
     private int origStrCol;
 
@@ -21,16 +21,16 @@ public class BWTParallel {
 
     public String transform(String input) {
         String[] rotations = rotate(input);
-        System.out.println("------ROTATIONS-----");
-        Utils.printStrArr(rotations);
-        System.out.println("--------------------");
+//        System.out.println("------ROTATIONS-----");
+//        Utils.printStrArr(rotations);
+//        System.out.println("--------------------");
 
 //        Timer.start();
         MergeParallel.sort(rotations);
 //        System.out.println("Speed: "+Timer.end());
-        System.out.println("--SORTED ROTATIONS--");
-        Utils.printStrArr(rotations);
-        System.out.println("--------------------");
+//        System.out.println("--SORTED ROTATIONS--");
+//        Utils.printStrArr(rotations);
+//        System.out.println("--------------------");
 
         origStrCol = Utils.getStringFromArr(rotations, input);
 
@@ -82,9 +82,6 @@ public class BWTParallel {
 
 
     private String getStrFromCol(String[] sortedRotations, int col){
-
-        String transform = getStrFromCol_Parallel(sortedRotations,0,sortedRotations.length-1,col);
-        System.out.println("result: "+transform);
         return  getStrFromCol_Parallel(sortedRotations,0,sortedRotations.length-1,col);
     }
 
