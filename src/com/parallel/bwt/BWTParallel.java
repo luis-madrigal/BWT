@@ -14,7 +14,7 @@ public class BWTParallel {
     //number of cores the computer has
     public final int N_CORES = 2;
     //change this to adjust partitioning for last column letter retrieval
-    public final int PARTITION_SIZE = 100;
+    public final int PARTITION_SIZE = 300;
 
     private int origStrCol;
 
