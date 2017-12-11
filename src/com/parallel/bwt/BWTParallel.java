@@ -95,7 +95,8 @@ public class BWTParallel {
     private String getStrFromCol(String[] sortedRotations, int col){
 
         t.start();
-        List<String[]> partitions = Utils.partitionString(sortedRotations,PARTITION_SIZE);
+        int partition_size = sortedRotations.length / 10;
+        List<String[]> partitions = Utils.partitionString(sortedRotations,partition_size);
 
         ArrayList<ConcatResult> callables = new ArrayList<>();
         for(String[] partition : partitions)
