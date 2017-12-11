@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class Driver {
 	
-	public static final String filename = "dna100k.txt";
+	public static final String filename = "dna5k.txt";
 
     public static void main(String[] args) {
     	Timer t = new Timer();

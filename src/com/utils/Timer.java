@@ -5,11 +5,11 @@ public class Timer {
 	private long startTime;
 	
 	public void start() {
-		startTime = System.currentTimeMillis();
+		startTime = System.nanoTime();
 	}
 
 	public long end() {
-		return System.currentTimeMillis() - startTime;
+		return System.nanoTime() - startTime;
 	}
 	
 }
